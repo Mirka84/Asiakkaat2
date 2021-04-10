@@ -13,7 +13,7 @@ import model.dao.AsiakasDao;
 import model.Asiakas2;
 
 
-@WebServlet("/asiakkaat2")
+@WebServlet("/asiakkaat2/*")
 public class Asiakkaat2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,10 +26,13 @@ public class Asiakkaat2 extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("asiakkaat2.doGet"); 
+		
+		System.out.println("asiakkaat2.doGet");
+		String pathInfo=request.getPathInfo(); 
+		System.out.println("polku:" +pathInfo); 
+		String hakusana=pathInfo.replace("/", ""); 
 		AsiakasDao dao=new AsiakasDao(); 
-		ArrayList<Asiakas2>asiakkaat=dao.listaaKaikki(); 
+		ArrayList<Asiakas2>asiakkaat=dao.listaaKaikki(hakusana); 
 		System.out.println(asiakkaat); 
 		String strJSON = new JSONObject().put("asiakkaat2", asiakkaat).toString();
 		response.setContentType("application/json");

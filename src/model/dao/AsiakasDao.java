@@ -61,4 +61,37 @@ public class AsiakasDao {
 		}		
 		return asiakkaat;
 	}
+	
+	public ArrayList<Asiakas2> listaaKaikki(String hakusana){
+		ArrayList<Asiakas2> asiakkaat = new ArrayList<Asiakas2>();
+		sql = "SELECT * FROM asiakkaat where asiakas_id LIKE ? or etunimi LIKE ? or sukunimi LIKE ? or puhelin LIKE ? or sposti LIKE ?";       
+		try {
+			con=yhdista();
+			if(con!=null){ 
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, "%"+hakusana+"%");
+				stmtPrep.setString(2, "%"+hakusana+"%");
+				stmtPrep.setString(3, "%"+hakusana+"%");
+				stmtPrep.setString(4, "%"+hakusana+"%");
+				stmtPrep.setString(5, "%"+hakusana+"%");
+        		rs = stmtPrep.executeQuery();   
+				if(rs!=null){ 
+										
+					while(rs.next()){
+						Asiakas2 asiakas = new Asiakas2();
+						asiakas.setAsiakas_id(rs.getInt(1));
+						asiakas.setEtunimi(rs.getString(2));
+						asiakas.setSukunimi(rs.getString(3));
+						asiakas.setPuhelin(rs.getString(4));	
+						asiakas.setSposti(rs.getString(5));	
+						asiakkaat.add(asiakas);
+					}					
+				}				
+			}	
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return asiakkaat;
+	}
 }
