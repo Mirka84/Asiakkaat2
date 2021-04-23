@@ -15,7 +15,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="6" class="oikealle"><span id="takaisin">Takaisin listaukseen</span></th>
+				<th colspan="6" class="vasemmalle"><a href='listaaasiakkaat.jsp?'>Takaisin listaukseen</a></th>
 			</tr>
 			<tr>
 				<th>Asiakastunnus</th>
@@ -42,9 +42,6 @@
 </body>
 <script>
 
-$("#takaisin").click(function(){
-	document.location="listaaasiakkaat.jsp"; 
-});
 
 $(document).ready(function(){
 	$("#tiedot").validate({
@@ -82,13 +79,14 @@ $(document).ready(function(){
 			sposti: {
 				required: "Sähköpostiosoite puuttuu",
 				minlength: "Sähköpostiosoite ei ole kelvollinen"
-			},
+			}
 			
-		}
+		},
 		submitHandler: function(form){
 			lisaaTiedot(); 
 			}
 	}); 
+	$("#asiakas_id").focus(); 
 }); 
 
 function lisaaTiedot(){	

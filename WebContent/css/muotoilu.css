@@ -1,21 +1,15 @@
 
 table, td, th {
 	border:  1px solid black; 
-<<<<<<< HEAD
+
 	font-family: Arial;  
-=======
-	font-family: Arial;
->>>>>>> 0968736e18f968c33f0b62fb482804ffaddce2c6
+
 }
 
 table {
 	width: 50%; 
 	border-collapse: collapse; 
-<<<<<<< HEAD
+
 	background-color: lightblue; 
-	
 }
-=======
-	background-color: lightblue;
-}
->>>>>>> 0968736e18f968c33f0b62fb482804ffaddce2c6
+

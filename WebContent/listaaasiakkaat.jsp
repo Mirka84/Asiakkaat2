@@ -19,8 +19,8 @@
 		<tr>
 			<th colspan="6" class="oikealle"><span id="uusiAsiakas">Lis‰‰ uusi asiakas:</span></th>
 		<tr>
-			<th class="oikealle">Hakusana:</th>
-			<th colspan="4"><input type="text" id="hakusana"></th>
+			<th colspan="4" class="oikealle">Hakusana:</th>
+			<th><input type="text" id="hakusana"></th>
 			<th><input type="button" value="Hae" id="hakunappi"></th>		
 		<tr>
 			<th>Asiakastunnus</th>
@@ -55,7 +55,7 @@ $(document).ready(function(){
 	
 function haeAsiakkaat(){
 	$("#listaus tbody").empty(); 
-	$.ajax({url:"asiakkaat2/"+$("#hakusana").val(), type:"GET", dataType:"json", success:function(result){		
+	$.getJSON({url:"asiakkaat2/"+$("#hakusana").val(), type:"GET", dataType:"json", success:function(result){		
 		$.each(result.asiakkaat2, function(i, field){  
         	var htmlStr;
         	htmlStr+="<tr>";
@@ -64,14 +64,15 @@ function haeAsiakkaat(){
         	htmlStr+="<td>"+field.sukunimi+"</td>";
         	htmlStr+="<td>"+field.puhelin+"</td>";
         	htmlStr+="<td>"+field.sposti+"</td>";
-        	htmlStr+="<td><span class='poista' onclick=poista('"+field.asiakas_id+"')>Poista</span></td>";
+        	htmlStr+="<td><a href='muutaasiakas.jsp?asiakas_id="+field.asiakas_id+"'>Muuta</a>&nbsp;";
+        	htmlStr+="<span class='poista' onclick=poista('"+field.asiakas_id+"')>Poista</span></td>";
         	htmlStr+="</tr>";
         	$("#listaus tbody").append(htmlStr);
         });	
     }});
 }
 
-function poistaAsiakas(asiakas_id){
+function poista(asiakas_id){
 	if(confirm("Poista asiakas " + asiakas_id + "?")){
 		$.ajax({url:"asiakkaat2/"+asiakas_id, type:"DELETE", dataType:"json", success:function(result) {       
 			if(result.response==0){
